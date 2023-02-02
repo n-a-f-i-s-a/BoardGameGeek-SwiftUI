@@ -11,7 +11,7 @@ import SwiftUI
 struct BoardGameGeek_SwiftUIApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(viewModel: BoardGameViewModel(boardGameService: BoardGameService(parser: SearchResultParser())))
         }
     }
 }
