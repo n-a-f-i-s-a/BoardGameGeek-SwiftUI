@@ -13,6 +13,11 @@ struct DetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .center, spacing: 8) {
+                if viewModel.isImageHidden == false {
+                    AsyncImage(url: viewModel.imageURL)
+                        .frame(width: 300, height: 300)
+                        .clipShape(Circle())
+                }
                 Text(viewModel.name)
                 Text(viewModel.year)
                 Text(viewModel.minPlayer)

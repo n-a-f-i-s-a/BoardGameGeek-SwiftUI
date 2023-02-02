@@ -48,9 +48,11 @@ private extension ContentView {
 
     var loadingSection: some View {
         Section {
-            VStack(alignment: .center, spacing: 10) {
+            HStack(alignment: .center, spacing: 10) {
+                Spacer()
                 ProgressView()
-                    .progressViewStyle(.circular)
+                    .progressViewStyle(CircularProgressViewStyle(tint: Color.secondaryTitleColor))
+                Spacer()
             }
         }
 

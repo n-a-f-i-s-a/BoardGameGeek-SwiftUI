@@ -63,19 +63,6 @@ public extension DetailViewModel {
         } 
     }
 
-    /// Returns the image data of a selected board game from the BoardGameGeek API.
-    ///
-    /// - Parameters:
-    ///    - url: The image url of a board game.
-
-    func getImageData(url: URL) async throws -> Data {
-        do {
-            return try await boardGameService.getImageData(url: url)
-        } catch {
-            throw error
-        }
-    }
-
 }
 
 public extension DetailViewModel {
