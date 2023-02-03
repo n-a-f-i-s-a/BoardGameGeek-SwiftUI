@@ -64,11 +64,9 @@ private extension ContentView {
                 NavigationLink(destination: DetailView(viewModel: viewModel.selectItem(boardGame: boardGame))) {
                     VStack(alignment: .leading, spacing: 8) {
                         Text(boardGame.name)
-                            .multilineTextAlignment(.leading)
-                            .foregroundColor(.primaryTitleColor)
+                            .leadingPrimaryText()
                         Text(viewModel.getYear(boardGame: boardGame) ?? "")
-                            .multilineTextAlignment(.leading)
-                            .foregroundColor(.secondaryTitleColor)
+                            .leadingSecondaryText()
                     }
                 }
                 .navigationBarTitleDisplayMode(.inline)
