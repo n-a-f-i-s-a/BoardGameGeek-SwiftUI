@@ -5,7 +5,6 @@
 //  Created by Nafisa Rahman on 3/2/2023.
 //
 
-import Foundation
 import SwiftUI
 
 struct StyledText: ViewModifier {

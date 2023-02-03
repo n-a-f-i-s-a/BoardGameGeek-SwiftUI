@@ -12,11 +12,32 @@ import Foundation
 @MainActor
 final public class DetailViewModel: ObservableObject {
 
+    // MARK: - Type
+
+    /// Different states.
+    public enum State {
+        /// User hasn't searched.
+        case idle
+
+        /// Data is being fetched.
+        case loading
+
+        /// Data has been loaded.
+        case loaded
+
+        /// API has not returned any data.
+        case empty
+
+        /// API has encountered an error
+        case error(Error)
+    }
+
     // MARK: - properties
 
     private let boardGameService: BoardGameServiceProtocol
     private let boardGame: BoardGame?
     @Published private var boardGameDetails: BoardGameDetails?
+    @Published var state: State = .idle
 
     /// Initializes a detail view model.
     ///
@@ -40,8 +61,11 @@ public extension DetailViewModel {
     func fetchGameDetails() {
         Task { [weak self] in
             do {
+                state = .loading
                 try await self?.getGameDetails()
+                state = .loaded
             } catch {
+                state = .error(error)
             }
         }
     }

@@ -19,13 +19,15 @@ struct ContentView: View {
             List {
                 switch viewModel.state{
                 case .loading:
-                    loadingSection
+                    LoadingView()
                 case .loaded:
                     loadedSection
                 case .empty:
-                    emptySection
+                    NoResultView()
                 case .idle:
-                    idleSection
+                    EmptyView()
+                case .error(let error):
+                    ErrorView(errorText: error.localizedDescription)
                 }
             }
         }
@@ -38,25 +40,6 @@ struct ContentView: View {
 }
 
 private extension ContentView {
-
-    var emptySection: some View {
-        Section {
-            Text("No results")
-                .foregroundColor(.gray)
-        }
-    }
-
-    var loadingSection: some View {
-        Section {
-            HStack(alignment: .center, spacing: 10) {
-                Spacer()
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: Color.secondaryTitleColor))
-                    .frame(height: 200)
-                Spacer()
-            }
-        }
-    }
 
     var loadedSection: some View {
         Section {
@@ -72,10 +55,6 @@ private extension ContentView {
                 .navigationBarTitleDisplayMode(.inline)
             }
         }
-    }
-
-    var idleSection: some View {
-        Section {}
     }
 
 }
