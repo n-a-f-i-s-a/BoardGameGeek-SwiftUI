@@ -52,21 +52,26 @@ private extension ContentView {
                 Spacer()
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: Color.secondaryTitleColor))
+                    .frame(height: 200)
                 Spacer()
             }
         }
-
     }
 
     var loadedSection: some View {
         Section {
             ForEach(viewModel.boardGames) { boardGame in
                 NavigationLink(destination: DetailView(viewModel: viewModel.selectItem(boardGame: boardGame))) {
-                    VStack {
+                    VStack(alignment: .leading, spacing: 8) {
                         Text(boardGame.name)
+                            .multilineTextAlignment(.leading)
+                            .foregroundColor(.primaryTitleColor)
                         Text(viewModel.getYear(boardGame: boardGame) ?? "")
+                            .multilineTextAlignment(.leading)
+                            .foregroundColor(.secondaryTitleColor)
                     }
                 }
+                .navigationBarTitleDisplayMode(.inline)
             }
         }
     }

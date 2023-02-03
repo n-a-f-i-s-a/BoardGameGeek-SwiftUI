@@ -12,18 +12,40 @@ struct DetailView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .center, spacing: 8) {
+            VStack(alignment: .center, spacing: 10) {
                 if viewModel.isImageHidden == false {
                     AsyncImage(url: viewModel.imageURL)
                         .frame(width: 300, height: 300)
                         .clipShape(Circle())
                 }
                 Text(viewModel.name)
+                    .centeredPrimaryText()
+
                 Text(viewModel.year)
-                Text(viewModel.minPlayer)
-                Text(viewModel.maxPlayer)
-                Text(viewModel.age)
+                    .centeredSecondaryText()
+
+                if viewModel.isMinPlayerHidden == false {
+                    Text(viewModel.minPlayer)
+                        .centeredSecondaryText()
+                }
+
+                if viewModel.isMaxPlayerHidden == false {
+                    Text(viewModel.maxPlayer)
+                        .centeredSecondaryText()
+                }
+
+                if viewModel.isAgeHidden == false {
+                    Text(viewModel.age)
+                        .centeredSecondaryText()
+                }
+
+                if viewModel.isPlayingTimeHidden == false {
+                    Text(viewModel.playingTime)
+                        .centeredSecondaryText()
+                }
+
                 Text(viewModel.description)
+                    .multilineTextAlignment(.center)
 
             }
             .padding(30)
