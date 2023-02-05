@@ -28,6 +28,9 @@ final public class BoardGameViewModel: ObservableObject {
 
         /// API has not returned any data.
         case empty
+
+        /// API has encountered an error
+        case error(Error)
     }
 
     // MARK: - properties
@@ -58,8 +61,8 @@ extension BoardGameViewModel {
                 self?.state = .loading
 
                 try await self?.getGames(searchString: searchString)
-            } catch {
-                // error
+            } catch { 
+                state = .error(error)
             }
         }
     }
@@ -76,11 +79,13 @@ extension BoardGameViewModel {
         do {
             let result = try await boardGameService.getData(urlString: baseURL + searchString)
             if case let .list(boardGames) = result {
-                if boardGames.isEmpty && state != .idle {
-                    state = .empty
-                } else {
-                    self.boardGames = boardGames.sorted(by: { $0.yearPublished ?? .min > $1.yearPublished ?? .min })
-                    state = .loaded
+                if case .loading = state {
+                    if boardGames.isEmpty  {
+                        state = .empty
+                    } else {
+                        self.boardGames = boardGames.sorted(by: { $0.yearPublished ?? .min > $1.yearPublished ?? .min })
+                        state = .loaded
+                    }
                 }
             }
         } catch {

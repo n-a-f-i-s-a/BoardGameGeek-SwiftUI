@@ -19,13 +19,15 @@ struct ContentView: View {
             List {
                 switch viewModel.state{
                 case .loading:
-                    loadingSection
+                    LoadingView()
                 case .loaded:
                     loadedSection
                 case .empty:
-                    emptySection
+                    NoResultView()
                 case .idle:
-                    idleSection
+                    EmptyView()
+                case .error(let error):
+                    ErrorView(errorText: error.localizedDescription)
                 }
             }
         }
@@ -39,38 +41,20 @@ struct ContentView: View {
 
 private extension ContentView {
 
-    var emptySection: some View {
-        Section {
-            Text("No results")
-                .foregroundColor(.gray)
-        }
-    }
-
-    var loadingSection: some View {
-        Section {
-            VStack(alignment: .center, spacing: 10) {
-                ProgressView()
-                    .progressViewStyle(.circular)
-            }
-        }
-
-    }
-
     var loadedSection: some View {
         Section {
             ForEach(viewModel.boardGames) { boardGame in
                 NavigationLink(destination: DetailView(viewModel: viewModel.selectItem(boardGame: boardGame))) {
-                    VStack {
+                    VStack(alignment: .leading, spacing: 8) {
                         Text(boardGame.name)
+                            .leadingPrimaryText()
                         Text(viewModel.getYear(boardGame: boardGame) ?? "")
+                            .leadingSecondaryText()
                     }
                 }
+                .navigationBarTitleDisplayMode(.inline)
             }
         }
-    }
-
-    var idleSection: some View {
-        Section {}
     }
 
 }
