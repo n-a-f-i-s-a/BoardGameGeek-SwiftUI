@@ -38,6 +38,7 @@ final public class DetailViewModel: ObservableObject {
     private let boardGame: BoardGame?
     @Published private var boardGameDetails: BoardGameDetails?
     @Published var state: State = .idle
+    @Published var isLearnMoreTapped = false
 
     /// Initializes a detail view model.
     ///

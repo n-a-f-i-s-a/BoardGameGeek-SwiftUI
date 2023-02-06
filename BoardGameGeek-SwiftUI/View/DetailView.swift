@@ -66,8 +66,15 @@ private extension DetailView {
                     .centeredSecondaryText()
             }
 
-            Text(viewModel.description)
-                .multilineTextAlignment(.center)
+            VStack {
+                Text(viewModel.description)
+                    .multilineTextAlignment(.center)
+                    .lineLimit(viewModel.isLearnMoreTapped ? nil : 2)
+
+                Button("Learn More"){
+                    viewModel.isLearnMoreTapped.toggle()
+                }
+            }
         }
     }
 
