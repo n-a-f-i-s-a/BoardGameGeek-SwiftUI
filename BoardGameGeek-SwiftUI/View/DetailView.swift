@@ -34,11 +34,13 @@ struct DetailView: View {
 private extension DetailView {
 
     var gameInfoView: some View {
+
         VStack(alignment: .center, spacing: 10) {
             if viewModel.isImageHidden == false {
                 AsyncImage(url: viewModel.imageURL)
                     .frame(width: 300, height: 300)
                     .clipShape(Circle())
+                    .shadow(radius: 3.0)
             }
             Text(viewModel.name)
                 .centeredPrimaryText()
@@ -46,34 +48,57 @@ private extension DetailView {
             Text(viewModel.year)
                 .centeredSecondaryText()
 
-            if viewModel.isMinPlayerHidden == false {
-                Text(viewModel.minPlayer)
-                    .centeredSecondaryText()
-            }
+            GeometryReader { geometry in
+                VStack {
+                    HStack {
+                        TileView(
+                            tileInfo: viewModel.playingTime,
+                            width: geometry.size.width * 0.3,
+                            height: 100,
+                            title: TileViewStyle.Title.primaryTitle,
+                            background: TileViewStyle.Background.blue
+                        )
+                        TileView(
+                            tileInfo: viewModel.age,
+                            width: geometry.size.width * 0.3,
+                            height: 100,
+                            title: TileViewStyle.Title.primaryTitle,
+                            background: TileViewStyle.Background.green
+                        )
+                    }
 
-            if viewModel.isMaxPlayerHidden == false {
-                Text(viewModel.maxPlayer)
-                    .centeredSecondaryText()
-            }
+                    if viewModel.isMinPlayerHidden == false {
+                        Text(viewModel.minPlayer)
+                            .centeredSecondaryText()
+                    }
 
-            if viewModel.isAgeHidden == false {
-                Text(viewModel.age)
-                    .centeredSecondaryText()
-            }
+                    if viewModel.isMaxPlayerHidden == false {
+                        Text(viewModel.maxPlayer)
+                            .centeredSecondaryText()
+                    }
 
-            if viewModel.isPlayingTimeHidden == false {
-                Text(viewModel.playingTime)
-                    .centeredSecondaryText()
-            }
+                    if viewModel.isAgeHidden == false {
+                        Text(viewModel.age)
+                            .centeredSecondaryText()
+                    }
 
-            VStack {
-                Text(viewModel.description)
-                    .multilineTextAlignment(.center)
-                    .lineLimit(viewModel.isLearnMoreTapped ? nil : 2)
+                    if viewModel.isPlayingTimeHidden == false {
+                        Text(viewModel.playingTime)
+                            .centeredSecondaryText()
+                    }
 
-                Button("Learn More"){
-                    viewModel.isLearnMoreTapped.toggle()
+                    VStack {
+                        Text(viewModel.description)
+                            .multilineTextAlignment(.center)
+                            .lineLimit(viewModel.isLearnMoreTapped ? nil : 2)
+
+                        Button("Learn More"){
+                            viewModel.isLearnMoreTapped.toggle()
+                        }
+                    }
+
                 }
+
             }
         }
     }
