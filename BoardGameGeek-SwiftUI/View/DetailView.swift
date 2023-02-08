@@ -44,35 +44,60 @@ private extension DetailView {
                     .centeredLargeSecondaryText()
             }
 
-            ScrollView(.horizontal) {
-                HStack {
+            VStack(spacing: 6) {
+                Text(viewModel.category)
+                    .centeredSecondaryText()
+
+                Text(viewModel.publisher)
+                    .centeredSecondaryText()
+            }
+
+            scrollableTileViews
+
+            ExpandableView(description: viewModel.description)
+        }
+    }
+
+    var scrollableTileViews: some View {
+        ScrollView(.horizontal) {
+            HStack {
+                if viewModel.isplayerCountHidden == false {
                     TileView(
-                        imageString: "person.2.circle.fill", imageTint: .blue,
-                        tileInfo: viewModel.playingTime,
+                        imageString: viewModel.playerImageString,
+                        imageTint: .blue,
+                        tileInfo: viewModel.playerCount,
                         width: 100,
                         height: 100,
                         title: TileViewStyle.Title.primaryTitle,
                         borderColor: .blue
                     )
+                }
+
+                if viewModel.isAgeHidden == false {
                     TileView(
-                        imageString: "person.2.circle", imageTint: .green, tileInfo: viewModel.age,
+                        imageString: viewModel.ageImageString,
+                        imageTint: .green,
+                        tileInfo: viewModel.age,
                         width: 100,
                         height: 100,
                         title: TileViewStyle.Title.primaryTitle,
                         borderColor: .green
                     )
+                }
+
+                if viewModel.isPlayingTimeHidden == false {
                     TileView(
-                        imageString: "timer", imageTint: .red, tileInfo: viewModel.playerCount,
+                        imageString: viewModel.playingTimeImageString,
+                        imageTint: .red,
+                        tileInfo: viewModel.playingTime,
                         width: 100,
                         height: 100,
                         title: TileViewStyle.Title.primaryTitle,
                         borderColor: TileViewStyle.BorderColor.red
                     )
                 }
-                .padding(20)
             }
-
-            ExpandableView(description: viewModel.description)
+            .padding(20)
         }
     }
 }

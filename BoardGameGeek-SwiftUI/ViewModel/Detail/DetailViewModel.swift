@@ -142,11 +142,13 @@ public extension DetailViewModel {
 
     var playerCount: String {
         if maxPlayer.isEmpty == false && minPlayer.isEmpty == false {
-            return "\(maxPlayer) - \(minPlayer)"
+            return "\(minPlayer) - \(maxPlayer)"
         } else if minPlayer.isEmpty == false && maxPlayer.isEmpty {
+            return "\(minPlayer)"
+        } else if minPlayer.isEmpty && maxPlayer.isEmpty == false {
             return "\(maxPlayer)"
         } else {
-            return "\(minPlayer)"
+            return ""
         }
     }
 
@@ -156,20 +158,19 @@ public extension DetailViewModel {
         return String(minPlayer)
     }
 
-    /// Indicates whether minimum number of players should be hidden
-    var isMinPlayerHidden: Bool {
-        minPlayer.isEmpty ? true : false
+    var playerImageString: String {
+        "person.2.circle.fill"
+    }
+
+    /// Indicates whether number of players should be hidden
+    var isplayerCountHidden: Bool {
+        playerCount.isEmpty ? true : false
     }
 
     /// The maximum number of players required to play the board game
     var maxPlayer: String {
         guard let maxPlayer = boardGameDetails?.maxPlayer else { return "" }
         return String(maxPlayer)
-    }
-
-    /// Indicates whether maximum number of players should be hidden
-    var isMaxPlayerHidden: Bool {
-        maxPlayer.isEmpty ? true : false
     }
 
     /// The image URL for the board game
@@ -198,10 +199,14 @@ public extension DetailViewModel {
         age.isEmpty ? true : false
     }
 
+    var ageImageString: String {
+        "person.2.circle"
+    }
+
     /// The playing time of the board game
     var playingTime: String {
         guard let playingTime = boardGameDetails?.playingTime else { return "" }
-        return String(playingTime)
+        return String(playingTime) + "min."
     }
 
     /// Indicates whether playing time should be hidden
@@ -209,26 +214,8 @@ public extension DetailViewModel {
         playingTime.isEmpty ? true : false
     }
 
-    /// The minimum playing time of the board game
-    var minimumPlayingTime: String {
-        guard let minimumPlayingTime = boardGameDetails?.minPlayTime else { return "" }
-        return "Min Playing Time: " + String(minimumPlayingTime)
-    }
-
-    /// Indicates whether minimum playing time should be hidden
-    var isMinimumPlayingTimeHidden: Bool {
-        minimumPlayingTime.isEmpty ? true : false
-    }
-
-    /// The maximum playing time of the board game
-    var maximumPlayingTime: String {
-        guard let maximumPlayingTime = boardGameDetails?.maxPlayTime else { return "" }
-        return "Max Playing Time: " + String(maximumPlayingTime)
-    }
-
-    /// Indicates whether maximum playing time should be hidden
-    var isMaximumPlayingTimeHidden: Bool {
-        maximumPlayingTime.isEmpty ? true : false
+    var playingTimeImageString: String {
+        "timer"
     }
 
 }

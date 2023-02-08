@@ -19,7 +19,6 @@ struct ExpandableView: View {
 
             Button(isLearnMoreTapped ? "Learn Less" : "Learn More"){
                 isLearnMoreTapped.toggle()
-
             }
         }
 

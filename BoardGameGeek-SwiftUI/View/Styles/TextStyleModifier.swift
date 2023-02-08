@@ -63,6 +63,10 @@ extension View {
         modifier(StyledText(title: .secondaryTitle, alignment: .leading, font: Font.largeTitle))
     }
 
+    func centeredSecondaryText() -> some View {
+        modifier(StyledText(title: .secondaryTitle, alignment: .leading, font: Font.body))
+    }
+
     func leadingPrimaryText() -> some View {
         modifier(StyledText(title: .primaryTitle, alignment: .center, font: Font.body))
     }
