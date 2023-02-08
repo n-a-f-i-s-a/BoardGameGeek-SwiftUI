@@ -30,13 +30,16 @@ struct ContentView: View {
                     ErrorView(errorText: error.localizedDescription)
                 }
             }
+            
         }
+
         .searchable(
             text: $viewModel.searchString,
             prompt: "Search a board game"
         )
         .onSubmit(of: .search) { viewModel.searchGames() }
     }
+
 }
 
 private extension ContentView {
@@ -51,9 +54,14 @@ private extension ContentView {
                         Text(viewModel.getYear(boardGame: boardGame) ?? "")
                             .leadingSecondaryText()
                     }
+                    .accessibility(hint: Text("Opens Game Details."))
+
+
                 }
                 .navigationBarTitleDisplayMode(.inline)
+
             }
+            .listRowBackground(Color("Background"))
         }
     }
 

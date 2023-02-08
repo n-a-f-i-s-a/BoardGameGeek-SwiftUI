@@ -17,7 +17,7 @@ struct DetailView: View {
                 EmptyView()
             case .loaded:
                 gameInfoView
-                    .padding(30)
+                    .padding(20)
             case .loading:
                 LoadingView()
             case .error(let error):
@@ -28,81 +28,67 @@ struct DetailView: View {
         }
         .onAppear { viewModel.fetchGameDetails() }
     }
-
 }
 
 private extension DetailView {
 
     var gameInfoView: some View {
+        VStack(alignment: .center, spacing: 20) {
+            RoundedImageView(imageURL: viewModel.imageURL)
 
-        VStack(alignment: .center, spacing: 10) {
-            if viewModel.isImageHidden == false {
-                AsyncImage(url: viewModel.imageURL)
-                    .frame(width: 300, height: 300)
-                    .clipShape(Circle())
-                    .shadow(radius: 3.0)
+            VStack(spacing: 6) {
+                Text(viewModel.name)
+                    .centeredLargePrimaryText()
+
+                Text(viewModel.year)
+                    .centeredLargeSecondaryText()
             }
-            Text(viewModel.name)
-                .centeredPrimaryText()
 
-            Text(viewModel.year)
-                .centeredSecondaryText()
 
-            GeometryReader { geometry in
-                VStack {
+            VStack(spacing: 10) {
+                ScrollView(.horizontal) {
                     HStack {
                         TileView(
+                            imageString: "person.2.circle.fill", imageTint: .blue,
                             tileInfo: viewModel.playingTime,
-                            width: geometry.size.width * 0.3,
+                            width: 100,
                             height: 100,
                             title: TileViewStyle.Title.primaryTitle,
-                            background: TileViewStyle.Background.blue
+                            borderColor: .blue
                         )
                         TileView(
-                            tileInfo: viewModel.age,
-                            width: geometry.size.width * 0.3,
+                            imageString: "person.2.circle", imageTint: .green, tileInfo: viewModel.age,
+                            width: 100,
                             height: 100,
                             title: TileViewStyle.Title.primaryTitle,
-                            background: TileViewStyle.Background.green
+                            borderColor: .green
+                        )
+                        TileView(
+                            imageString: "timer", imageTint: .red, tileInfo: viewModel.playerCount,
+                            width: 100,
+                            height: 100,
+                            title: TileViewStyle.Title.primaryTitle,
+                            borderColor: TileViewStyle.BorderColor.red
                         )
                     }
+                    .padding(20)
+                }
 
-                    if viewModel.isMinPlayerHidden == false {
-                        Text(viewModel.minPlayer)
-                            .centeredSecondaryText()
+
+                VStack {
+                    Text(viewModel.description)
+                        .multilineTextAlignment(.center)
+                        .lineLimit(viewModel.isLearnMoreTapped ? nil : 2)
+
+                    Button("Learn More"){
+                        viewModel.isLearnMoreTapped.toggle()
                     }
-
-                    if viewModel.isMaxPlayerHidden == false {
-                        Text(viewModel.maxPlayer)
-                            .centeredSecondaryText()
-                    }
-
-                    if viewModel.isAgeHidden == false {
-                        Text(viewModel.age)
-                            .centeredSecondaryText()
-                    }
-
-                    if viewModel.isPlayingTimeHidden == false {
-                        Text(viewModel.playingTime)
-                            .centeredSecondaryText()
-                    }
-
-                    VStack {
-                        Text(viewModel.description)
-                            .multilineTextAlignment(.center)
-                            .lineLimit(viewModel.isLearnMoreTapped ? nil : 2)
-
-                        Button("Learn More"){
-                            viewModel.isLearnMoreTapped.toggle()
-                        }
-                    }
-
                 }
 
             }
+
         }
     }
-
 }
 
 struct DetailView_Previews: PreviewProvider {

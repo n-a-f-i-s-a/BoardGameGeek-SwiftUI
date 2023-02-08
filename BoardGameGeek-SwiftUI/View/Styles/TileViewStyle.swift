@@ -23,12 +23,12 @@ struct TileViewStyle: ViewModifier {
         }
     }
 
-    enum Background {
+    enum BorderColor {
         case red
         case blue
         case green
 
-        func makeBackground() -> Color {
+        func makeBorderColor() -> Color {
             switch self {
             case .red:
                 return Color.red
@@ -41,14 +41,18 @@ struct TileViewStyle: ViewModifier {
     }
 
     var title: Title
-    var background: Background
+    var borderColor: BorderColor
 
     func body(content: Content) -> some View {
         content
             .foregroundColor(title.makeColor())
-            .background(background.makeBackground())
-            .clipShape(Rectangle())
-            .cornerRadius(10)
+            .padding(5)
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(borderColor.makeBorderColor(), lineWidth: 4)
+                    .shadow(radius: 5)
+            )
+
     }
 
 }

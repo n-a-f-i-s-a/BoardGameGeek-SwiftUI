@@ -42,9 +42,11 @@ struct StyledText: ViewModifier {
 
     var title: Title
     var alignment: Alignment
+    var font: Font
 
     func body(content: Content) -> some View {
         content
+            .font(font)
             .foregroundColor(title.makeColor())
             .multilineTextAlignment(alignment.makeAlignment())
     }
@@ -53,20 +55,20 @@ struct StyledText: ViewModifier {
 
 extension View {
 
-    func centeredPrimaryText() -> some View {
-        modifier(StyledText(title: .primaryTitle, alignment: .center))
+    func centeredLargePrimaryText() -> some View {
+        modifier(StyledText(title: .primaryTitle, alignment: .center, font: Font.largeTitle))
     }
 
-    func centeredSecondaryText() -> some View {
-        modifier(StyledText(title: .secondaryTitle, alignment: .leading))
+    func centeredLargeSecondaryText() -> some View {
+        modifier(StyledText(title: .secondaryTitle, alignment: .leading, font: Font.largeTitle))
     }
 
     func leadingPrimaryText() -> some View {
-        modifier(StyledText(title: .primaryTitle, alignment: .center))
+        modifier(StyledText(title: .primaryTitle, alignment: .center, font: Font.body))
     }
 
     func leadingSecondaryText() -> some View {
-        modifier(StyledText(title: .secondaryTitle, alignment: .leading))
+        modifier(StyledText(title: .secondaryTitle, alignment: .leading, font: Font.body))
     }
     
 }

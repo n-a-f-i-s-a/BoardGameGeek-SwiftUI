@@ -140,10 +140,20 @@ public extension DetailViewModel {
         publisher.isEmpty ? true : false
     }
 
+    var playerCount: String {
+        if maxPlayer.isEmpty == false && minPlayer.isEmpty == false {
+            return "\(maxPlayer) - \(minPlayer)"
+        } else if minPlayer.isEmpty == false && maxPlayer.isEmpty {
+            return "\(maxPlayer)"
+        } else {
+            return "\(minPlayer)"
+        }
+    }
+
     /// The minimum number of players required to play the board game
     var minPlayer: String {
         guard let minPlayer = boardGameDetails?.minPlayer else { return "" }
-        return "Min Players: " + String(minPlayer)
+        return String(minPlayer)
     }
 
     /// Indicates whether minimum number of players should be hidden
@@ -154,7 +164,7 @@ public extension DetailViewModel {
     /// The maximum number of players required to play the board game
     var maxPlayer: String {
         guard let maxPlayer = boardGameDetails?.maxPlayer else { return "" }
-        return "Max Players: " + String(maxPlayer)
+        return String(maxPlayer)
     }
 
     /// Indicates whether maximum number of players should be hidden
@@ -180,7 +190,7 @@ public extension DetailViewModel {
     /// The age of players for the board game
     var age: String {
         guard let age = boardGameDetails?.age else { return "" }
-        return "Age: " + String(age)
+        return String(age) + "+"
     }
 
     /// Indicates whether the age should be hidden
@@ -191,7 +201,7 @@ public extension DetailViewModel {
     /// The playing time of the board game
     var playingTime: String {
         guard let playingTime = boardGameDetails?.playingTime else { return "" }
-        return "Playing Time: " + String(playingTime)
+        return String(playingTime)
     }
 
     /// Indicates whether playing time should be hidden
