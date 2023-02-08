@@ -44,49 +44,35 @@ private extension DetailView {
                     .centeredLargeSecondaryText()
             }
 
-
-            VStack(spacing: 10) {
-                ScrollView(.horizontal) {
-                    HStack {
-                        TileView(
-                            imageString: "person.2.circle.fill", imageTint: .blue,
-                            tileInfo: viewModel.playingTime,
-                            width: 100,
-                            height: 100,
-                            title: TileViewStyle.Title.primaryTitle,
-                            borderColor: .blue
-                        )
-                        TileView(
-                            imageString: "person.2.circle", imageTint: .green, tileInfo: viewModel.age,
-                            width: 100,
-                            height: 100,
-                            title: TileViewStyle.Title.primaryTitle,
-                            borderColor: .green
-                        )
-                        TileView(
-                            imageString: "timer", imageTint: .red, tileInfo: viewModel.playerCount,
-                            width: 100,
-                            height: 100,
-                            title: TileViewStyle.Title.primaryTitle,
-                            borderColor: TileViewStyle.BorderColor.red
-                        )
-                    }
-                    .padding(20)
+            ScrollView(.horizontal) {
+                HStack {
+                    TileView(
+                        imageString: "person.2.circle.fill", imageTint: .blue,
+                        tileInfo: viewModel.playingTime,
+                        width: 100,
+                        height: 100,
+                        title: TileViewStyle.Title.primaryTitle,
+                        borderColor: .blue
+                    )
+                    TileView(
+                        imageString: "person.2.circle", imageTint: .green, tileInfo: viewModel.age,
+                        width: 100,
+                        height: 100,
+                        title: TileViewStyle.Title.primaryTitle,
+                        borderColor: .green
+                    )
+                    TileView(
+                        imageString: "timer", imageTint: .red, tileInfo: viewModel.playerCount,
+                        width: 100,
+                        height: 100,
+                        title: TileViewStyle.Title.primaryTitle,
+                        borderColor: TileViewStyle.BorderColor.red
+                    )
                 }
-
-
-                VStack {
-                    Text(viewModel.description)
-                        .multilineTextAlignment(.center)
-                        .lineLimit(viewModel.isLearnMoreTapped ? nil : 2)
-
-                    Button("Learn More"){
-                        viewModel.isLearnMoreTapped.toggle()
-                    }
-                }
-
+                .padding(20)
             }
 
+            ExpandableView(description: viewModel.description)
         }
     }
 }
