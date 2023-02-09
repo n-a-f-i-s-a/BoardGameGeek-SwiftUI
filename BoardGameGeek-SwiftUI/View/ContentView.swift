@@ -32,7 +32,6 @@ struct ContentView: View {
             }
             
         }
-        
         .searchable(
             text: $viewModel.searchString,
             prompt: "Search a board game"

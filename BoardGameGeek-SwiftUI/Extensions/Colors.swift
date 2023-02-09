@@ -13,7 +13,7 @@ extension Color {
         return primaryColor
     }
     static var secondaryTitleColor: Color {
-        return .orange
+        return .purple
     }
 
     static var shadowColor: Color {
@@ -22,10 +22,6 @@ extension Color {
 
     static var separatorColor: Color {
         return .gray
-    }
-
-    static var searchBarColor: Color {
-        return .orange
     }
 
     static var primaryColor: Color {
