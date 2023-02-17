@@ -9,11 +9,11 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var viewModel: BoardGameViewModel
-
+    
     init(viewModel: BoardGameViewModel) {
         self.viewModel = viewModel
     }
-
+    
     var body: some View {
         NavigationStack {
             List {
@@ -30,6 +30,7 @@ struct ContentView: View {
                     ErrorView(errorText: error.localizedDescription)
                 }
             }
+            
         }
         .searchable(
             text: $viewModel.searchString,
@@ -37,10 +38,11 @@ struct ContentView: View {
         )
         .onSubmit(of: .search) { viewModel.searchGames() }
     }
+    
 }
 
 private extension ContentView {
-
+    
     var loadedSection: some View {
         Section {
             ForEach(viewModel.boardGames) { boardGame in
@@ -51,12 +53,17 @@ private extension ContentView {
                         Text(viewModel.getYear(boardGame: boardGame) ?? "")
                             .leadingSecondaryText()
                     }
+                    .accessibility(hint: Text("Opens Game Details."))
+                    
+                    
                 }
                 .navigationBarTitleDisplayMode(.inline)
+                
             }
+            
         }
     }
-
+    
 }
 
 struct ContentView_Previews: PreviewProvider {

@@ -38,6 +38,7 @@ final public class DetailViewModel: ObservableObject {
     private let boardGame: BoardGame?
     @Published private var boardGameDetails: BoardGameDetails?
     @Published var state: State = .idle
+    @Published var isLearnMoreTapped = false
 
     /// Initializes a detail view model.
     ///
@@ -139,26 +140,37 @@ public extension DetailViewModel {
         publisher.isEmpty ? true : false
     }
 
+    var playerCount: String {
+        if maxPlayer.isEmpty == false && minPlayer.isEmpty == false {
+            return "\(minPlayer) - \(maxPlayer)"
+        } else if minPlayer.isEmpty == false && maxPlayer.isEmpty {
+            return "\(minPlayer)"
+        } else if minPlayer.isEmpty && maxPlayer.isEmpty == false {
+            return "\(maxPlayer)"
+        } else {
+            return ""
+        }
+    }
+
     /// The minimum number of players required to play the board game
     var minPlayer: String {
         guard let minPlayer = boardGameDetails?.minPlayer else { return "" }
-        return "Min Players: " + String(minPlayer)
+        return String(minPlayer)
     }
 
-    /// Indicates whether minimum number of players should be hidden
-    var isMinPlayerHidden: Bool {
-        minPlayer.isEmpty ? true : false
+    var playerImageString: String {
+        "person.2.circle.fill"
+    }
+
+    /// Indicates whether number of players should be hidden
+    var isplayerCountHidden: Bool {
+        playerCount.isEmpty ? true : false
     }
 
     /// The maximum number of players required to play the board game
     var maxPlayer: String {
         guard let maxPlayer = boardGameDetails?.maxPlayer else { return "" }
-        return "Max Players: " + String(maxPlayer)
-    }
-
-    /// Indicates whether maximum number of players should be hidden
-    var isMaxPlayerHidden: Bool {
-        maxPlayer.isEmpty ? true : false
+        return String(maxPlayer)
     }
 
     /// The image URL for the board game
@@ -179,7 +191,7 @@ public extension DetailViewModel {
     /// The age of players for the board game
     var age: String {
         guard let age = boardGameDetails?.age else { return "" }
-        return "Age: " + String(age)
+        return String(age) + "+"
     }
 
     /// Indicates whether the age should be hidden
@@ -187,10 +199,14 @@ public extension DetailViewModel {
         age.isEmpty ? true : false
     }
 
+    var ageImageString: String {
+        "person.2.circle"
+    }
+
     /// The playing time of the board game
     var playingTime: String {
         guard let playingTime = boardGameDetails?.playingTime else { return "" }
-        return "Playing Time: " + String(playingTime)
+        return String(playingTime) + "min."
     }
 
     /// Indicates whether playing time should be hidden
@@ -198,26 +214,8 @@ public extension DetailViewModel {
         playingTime.isEmpty ? true : false
     }
 
-    /// The minimum playing time of the board game
-    var minimumPlayingTime: String {
-        guard let minimumPlayingTime = boardGameDetails?.minPlayTime else { return "" }
-        return "Min Playing Time: " + String(minimumPlayingTime)
-    }
-
-    /// Indicates whether minimum playing time should be hidden
-    var isMinimumPlayingTimeHidden: Bool {
-        minimumPlayingTime.isEmpty ? true : false
-    }
-
-    /// The maximum playing time of the board game
-    var maximumPlayingTime: String {
-        guard let maximumPlayingTime = boardGameDetails?.maxPlayTime else { return "" }
-        return "Max Playing Time: " + String(maximumPlayingTime)
-    }
-
-    /// Indicates whether maximum playing time should be hidden
-    var isMaximumPlayingTimeHidden: Bool {
-        maximumPlayingTime.isEmpty ? true : false
+    var playingTimeImageString: String {
+        "timer"
     }
 
 }

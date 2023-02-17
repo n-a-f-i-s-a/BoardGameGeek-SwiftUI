@@ -13,7 +13,7 @@ struct ErrorView: View {
     var body: some View {
         VStack(alignment: .center) {
             Text("We have encountered \(errorText) error!!!")
-                .centeredSecondaryText()
+                .centeredLargeSecondaryText()
         }
     }
     

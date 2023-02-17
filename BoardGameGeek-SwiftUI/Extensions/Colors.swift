@@ -10,10 +10,10 @@ import SwiftUI
 extension Color {
 
     static var primaryTitleColor: Color {
-        return .cyan
+        return primaryColor
     }
     static var secondaryTitleColor: Color {
-        return .orange
+        return .purple
     }
 
     static var shadowColor: Color {
@@ -24,8 +24,8 @@ extension Color {
         return .gray
     }
 
-    static var searchBarColor: Color {
-        return .orange
+    static var primaryColor: Color {
+        return Color("Primary")
     }
 
 }

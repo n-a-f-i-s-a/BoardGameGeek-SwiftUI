@@ -17,7 +17,7 @@ struct DetailView: View {
                 EmptyView()
             case .loaded:
                 gameInfoView
-                    .padding(30)
+                    .padding(20)
             case .loading:
                 LoadingView()
             case .error(let error):
@@ -28,49 +28,78 @@ struct DetailView: View {
         }
         .onAppear { viewModel.fetchGameDetails() }
     }
-
 }
 
 private extension DetailView {
 
     var gameInfoView: some View {
-        VStack(alignment: .center, spacing: 10) {
-            if viewModel.isImageHidden == false {
-                AsyncImage(url: viewModel.imageURL)
-                    .frame(width: 300, height: 300)
-                    .clipShape(Circle())
+        VStack(alignment: .center, spacing: 20) {
+            RoundedImageView(imageURL: viewModel.imageURL)
+
+            VStack(spacing: 6) {
+                Text(viewModel.name)
+                    .centeredLargePrimaryText()
+
+                Text(viewModel.year)
+                    .centeredLargeSecondaryText()
             }
-            Text(viewModel.name)
-                .centeredPrimaryText()
 
-            Text(viewModel.year)
-                .centeredSecondaryText()
+            VStack(spacing: 6) {
+                Text(viewModel.category)
+                    .centeredSecondaryText()
 
-            if viewModel.isMinPlayerHidden == false {
-                Text(viewModel.minPlayer)
+                Text(viewModel.publisher)
                     .centeredSecondaryText()
             }
 
-            if viewModel.isMaxPlayerHidden == false {
-                Text(viewModel.maxPlayer)
-                    .centeredSecondaryText()
-            }
+            scrollableTileViews
 
-            if viewModel.isAgeHidden == false {
-                Text(viewModel.age)
-                    .centeredSecondaryText()
-            }
-
-            if viewModel.isPlayingTimeHidden == false {
-                Text(viewModel.playingTime)
-                    .centeredSecondaryText()
-            }
-
-            Text(viewModel.description)
-                .multilineTextAlignment(.center)
+            ExpandableView(description: viewModel.description)
         }
     }
 
+    var scrollableTileViews: some View {
+        ScrollView(.horizontal) {
+            HStack {
+                if viewModel.isplayerCountHidden == false {
+                    TileView(
+                        imageString: viewModel.playerImageString,
+                        imageTint: .blue,
+                        tileInfo: viewModel.playerCount,
+                        width: 100,
+                        height: 100,
+                        title: TileViewStyle.Title.primaryTitle,
+                        borderColor: .blue
+                    )
+                }
+
+                if viewModel.isAgeHidden == false {
+                    TileView(
+                        imageString: viewModel.ageImageString,
+                        imageTint: .green,
+                        tileInfo: viewModel.age,
+                        width: 100,
+                        height: 100,
+                        title: TileViewStyle.Title.primaryTitle,
+                        borderColor: .green
+                    )
+                }
+
+                if viewModel.isPlayingTimeHidden == false {
+                    TileView(
+                        imageString: viewModel.playingTimeImageString,
+                        imageTint: .red,
+                        tileInfo: viewModel.playingTime,
+                        width: 100,
+                        height: 100,
+                        title: TileViewStyle.Title.primaryTitle,
+                        borderColor: TileViewStyle.BorderColor.red
+                    )
+                }
+            }
+            .padding(20)
+        }
+    }
 }
 
 struct DetailView_Previews: PreviewProvider {
